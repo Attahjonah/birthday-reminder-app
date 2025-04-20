@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Birthday Reminder Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Register for Birthday Reminders</h2>
+    <form id="registerForm">
+        <input type="text" id="username" placeholder="Username" required />
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="date" id="dob" required />
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('registerForm');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const dob = document.getElementById('dob').value;
+
+            try {
+                const response = await fetch('http://localhost:1960/api/users/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, email, dob }),
+                });
+
+                if (response.ok) {
+                    window.location.href = '/thankYou.html';
+                } else {
+                    const data = await response.json();
+                    alert(data.error || 'Registration failed');
+                }
+            } catch (err) {
+                alert('Error connecting to server.');
+                console.error(err);
+            }
+        });
+    </script>
+</body>
+</html>
