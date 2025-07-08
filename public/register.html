@@ -39,10 +39,10 @@
             const dob = document.getElementById('dob').value;
 
             try {
-                const response = await fetch('http://localhost:1960/api/users/register', {
+                const response = await fetch('http://localhost:1960/register', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json', 
                     },
                     body: JSON.stringify({ username, email, dob }),
                 });
